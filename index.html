@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Fire Gym Mobile</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121212">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e53935;
+            --primary-dark: #b71c1c;
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --text: #ffffff;
+            --text-muted: #aaaaaa;
+            --accent: #ffb300;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        /* Hero Splash */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(18, 18, 18, 0.4), var(--bg)), url('https://placeholder-gym-bg.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(229, 57, 53, 0.2);
+        }
+
+        .logo-img {
+            width: 120px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px var(--primary));
+            animation: pulse 2s infinite alternate;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            background: linear-gradient(to bottom, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .main-btn {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: 0 10px 20px rgba(229, 57, 53, 0.4);
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        /* Stats Row */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px 10px;
+            background: var(--surface);
+            margin-top: -30px;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+
+        .stat-item { text-align: center; }
+        .stat-num { color: var(--accent); font-size: 22px; font-weight: 900; }
+        .stat-label { color: var(--text-muted); font-size: 12px; }
+
+        /* Plans Section */
+        .section-title {
+            padding: 30px 20px 10px;
+            text-align: right;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .plans-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px;
+            gap: 15px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .plan-card {
+            flex: 0 0 75%;
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            scroll-snap-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .plan-card.active {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(229, 57, 53, 0.2);
+        }
+
+        .plan-icon { font-size: 40px; margin-bottom: 10px; }
+        .plan-price { 
+            display: inline-block; 
+            background: var(--primary); 
+            padding: 5px 15px; 
+            border-radius: 10px; 
+            font-weight: 900; 
+            margin-bottom: 15px;
+        }
+
+        .plan-btn {
+            display: block;
+            background: #333;
+            color: #fff;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0 25px;
+            border-top: 1px solid #333;
+            z-index: 100;
+        }
+
+        .nav-item { color: var(--text-muted); text-decoration: none; font-size: 12px; display: flex; flex-direction: column; align-items: center; }
+        .nav-item.active { color: var(--primary); }
+        .nav-icon { font-size: 20px; margin-bottom: 4px; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        /* Social/WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: #25d366;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 90;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <!-- Replace with actual logo -->
+        <h1>FIRE GYM</h1>
+        <div class="subtitle">PREMIUM FITNESS</div>
+        <p style="margin-bottom: 30px; font-weight: bold; opacity: 0.9;">أقوى متابعة أونلاين في الوطن العربي 💪</p>
+        <a href="https://wa.me/201100896637" class="main-btn">ابدأ رحلتك الآن</a>
+    </div>
+
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-num">+16</div>
+            <div class="stat-label">سنة خبرة</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">1500</div>
+            <div class="stat-label">بطل أونلاين</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">95%</div>
+            <div class="stat-label">نسبة نجاح</div>
+        </div>
+    </div>
+
+    <div class="section-title">أنظمة الاشتراك 🏆</div>
+    <div class="plans-container">
+        <div class="plan-card">
+            <div class="plan-icon">🍎</div>
+            <h3 style="margin-bottom: 10px;">نظام التغذية</h3>
+            <div class="plan-price">250 ج</div>
+            <p style="color: var(--text-muted);">نظام مخصص لهدفك وصحتك</p>
+            <a href="https://wa.me/201100896637" class="plan-btn">اشترك الآن</a>
+        </div>
+        <div class="plan-card active">
+            <div class="plan-icon">🏋️‍♂️</div>
+            <h3 style="margin-bottom: 10px;">نظام التدريب</h3>
+            <div class="plan-price">300 ج</div>
+            <p style="color: var(--text-muted);">جدول تمارين احترافي ومتابعة</p>
+            <a href="https://wa.me/201100896637" class="plan-btn" style="background: var(--primary);">اشترك الآن</a>
+        </div>
+        <div class="plan-card" style="background: #252525;">
+            <div class="plan-icon">⭐</div>
+            <h3 style="margin-bottom: 10px; color: var(--accent);">نظام VIP</h3>
+            <div class="plan-price" style="background: var(--accent); color: #000;">500 ج</div>
+            <p style="color: var(--text-muted);">متابعة يومية وتحضير بطولات</p>
+            <a href="https://wa.me/201100896637" class="plan-btn" style="background: var(--accent); color: #000;">اشترك الآن</a>
+        </div>
+    </div>
+
+    <div style="padding: 40px 20px 120px; text-align: center; color: var(--text-muted); font-size: 14px;">
+        جميع الحقوق محفوظة © 2026 Fire Gym & Fitness
+    </div>
+
+    <a href="https://wa.me/201100896637" class="whatsapp-float">
+        <svg style="width: 30px; fill: white;" viewBox="0 0 24 24"><path d="M12.031 6.172c-2.32 0-4.519.903-6.16 2.544-3.4 3.4-3.4 8.92 0 12.319l1.103 1.103a.5.5 0 00.354.146.505.505 0 00.353-.146l1.415-1.415a.507.507 0 000-.707l-1.103-1.103c-2.612-2.612-2.612-6.86 0-9.47 1.265-1.266 2.947-1.963 4.734-1.963 1.787 0 3.468.697 4.734 1.963 2.613 2.612 2.613 6.86 0 9.47l-1.103 1.103a.507.507 0 000 .707l1.415 1.415c.098.098.226.146.353.146a.5.5 0 00.354-.146l1.103-1.103c3.4-3.399 3.4-8.919 0-12.319-1.641-1.641-3.84-2.544-6.16-2.544z"/></svg>
+    </a>
+
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>الرئيسية</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">🔥</span>
+            <span>التحولات</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">💰</span>
+            <span>الباقات</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>حسابي</span>
+        </a>
+    </div>
+
+</body>
+</html>
